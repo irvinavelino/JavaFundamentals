@@ -1,53 +1,55 @@
 package com.encora.expenses.domain;
 
+import com.encora.expenses.Exceptions.EmployeeNotFound;
 import com.encora.expenses.domain.Employee;
 
-public class Employees
-{
-    private Employee[] employees;
+import java.util.*;
 
-    public Employees(int numberOfEmployees)
-    {
-        employees =new Employee[numberOfEmployees];
-    }
+public class Employees {
+    private Map<Integer,Employee> employees=new HashMap<>();
+
     public void addEmployee(Employee employee)
     {
-        int firstEmptyPosition= -1;
-        for (int i = 0; i < employees.length; i++)
+        employees.put(employee.getId(),employee);
+    }
+
+    public void printEmployees() {
+        List<Employee> employeeList=new ArrayList<>(employees.values());
+        Collections.sort(employeeList);
+        for (Employee e : employeeList)
         {
-            if (firstEmptyPosition==-1 && employees[i]==null)
-            {
-                firstEmptyPosition=i;
-            }
-        }
-        if(firstEmptyPosition==-1)
-        {
-            System.out.println("Sorry the array is full");
-        }
-        else
-        {
-            employees[firstEmptyPosition]=employee;
+                System.out.println(e);
         }
     }
-    public void printEmployees()
-    {
-        for(Employee e:employees)
-        {
-            if(e!=null)
-            {
-                System.out.println(e.getMailingName());
-            }
-        }
-    }
-    public Employee getBySurname(String surname)
-    {
-        for(Employee e:employees)
-        {
-            if(e!=null && e.getSurname().equals(surname))
-            {
+
+    public Employee getBySurname(String surname) {
+        for (Employee e : employees.values()) {
+            if (e.getSurname().equals(surname)) {
                 return e;
             }
         }
         return null;
+    }
+    public Employee getById(Integer id) {
+        return employees.get(id);
+    }
+
+    public boolean employeeExists(int id)
+    {
+        return  employees.containsKey(id);
+    }
+    public void addExpenseClaim(ExpenseClaim claim) throws EmployeeNotFound
+    {
+        Integer employeeId=claim.getEmployeeId();
+        if(!employeeExists(employeeId))
+        {
+            throw new EmployeeNotFound();
+        }
+        for (Employee e : employees.values()) {
+            if (e.getId()==employeeId)
+            {
+                e.getClaims().put(claim.getId(),claim);
+            }
+        }
     }
 }

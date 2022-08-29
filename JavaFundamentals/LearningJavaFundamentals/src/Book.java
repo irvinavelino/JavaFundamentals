@@ -1,4 +1,4 @@
-public class Book
+public class Book implements Comparable<Book>
 {
     private String title;
     private String author;
@@ -33,5 +33,10 @@ public class Book
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        return this.title.compareTo(o.getTitle());
     }
 }

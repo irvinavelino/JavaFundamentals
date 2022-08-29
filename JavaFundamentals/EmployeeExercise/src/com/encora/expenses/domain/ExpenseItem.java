@@ -4,11 +4,11 @@ public class ExpenseItem
 {
     private int id;
     private int claimId;
-    private String expenseTime;
+    private ExpenseType expenseTime;
     private String description;
     private Double amount;
 
-    public ExpenseItem(int id, int claimId, String expenseTime, String description, Double amount) {
+    public ExpenseItem(int id, int claimId, ExpenseType expenseTime, String description, Double amount) {
         this.id = id;
         this.claimId = claimId;
         this.expenseTime = expenseTime;
@@ -24,7 +24,7 @@ public class ExpenseItem
         return claimId;
     }
 
-    public String getExpenseTime() {
+    public ExpenseType getExpenseTime() {
         return expenseTime;
     }
 

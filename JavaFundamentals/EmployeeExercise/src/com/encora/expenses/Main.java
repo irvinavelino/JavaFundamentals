@@ -1,9 +1,8 @@
 package com.encora.expenses;
 
-import com.encora.expenses.domain.Employee;
-import com.encora.expenses.domain.Employees;
-import com.encora.expenses.domain.ExpenseClaim;
-import com.encora.expenses.domain.ExpenseItem;
+import com.encora.expenses.domain.*;
+
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args)
@@ -23,15 +22,15 @@ public class Main {
         employee2.setFirstName("Denis");
         employee2.setSurname("Yellow");
 
-        Employees employees= new Employees(15);
+        Employees employees= new Employees();
         employees.addEmployee(employee1);
         employees.addEmployee(employee2);
-        employees.addEmployee(new Employee(3,"Mrs","Susan","Brown","director","test"));
+        employees.addEmployee(new Employee(3,"Mrs","Susan","Brown","director", Department.MARKETING));
         employees.printEmployees();
         Employee foundEmployee=employees.getBySurname("Brown");
         System.out.println("Found "+foundEmployee.getMailingName());
 
-        ExpenseClaim expenseClaim= new ExpenseClaim(24,642,"2022-09-01",26.99);
+        ExpenseClaim expenseClaim= new ExpenseClaim(24,642, LocalDate.now());
         System.out.println(expenseClaim.getEmployeeId());
         expenseClaim.setPaid(true);
         System.out.println(expenseClaim.getPaid());
@@ -39,7 +38,7 @@ public class Main {
         expenseClaim.setPaid(true);
         System.out.println(expenseClaim.getPaid());
 
-        ExpenseItem expenseItem= new ExpenseItem(23,102,"hotel","the grand hotel",69.00);
+        ExpenseItem expenseItem= new ExpenseItem(23,102,ExpenseType.STATIONARY,"the grand hotel",69.00);
         System.out.println(expenseItem.getDescription());
     }
 }
