@@ -19,6 +19,10 @@ public class Employees {
         for (Employee e : employeeList)
         {
                 System.out.println(e);
+            for (ExpenseClaim claim :e.getClaims().values())
+            {
+                
+            }
         }
     }
 

@@ -8,7 +8,9 @@ import com.encora.travelbooking.exceptions.InvalidTravelDurationException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.function.BiFunction;
 
 public class Main
 {
@@ -67,5 +69,10 @@ public class Main
         bookingSystem.setTravelTicket(busTicket3);
         bookingSystem.requestBooking();
         System.out.println(bookingSystem.getStatus());
+
+        BiFunction<TravelTicket,TravelTicket,Integer> departureTimeSort =(TravelTicket a, TravelTicket b)->{
+            return a.getDepartureTime().compareTo(b.getDepartureTime());
+        };
+        Collections.sort(tickets,(a,b)-> a.getDepartureTime().compareTo(b.getDepartureTime()));
     }
 }
